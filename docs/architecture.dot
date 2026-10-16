@@ -1,0 +1,39 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="#fcfcfb", fontname="Helvetica", fontsize=11, nodesep=0.35, ranksep=0.5, pad=0.3];
+  node  [shape=box, style="rounded,filled", fillcolor="#ffffff", color="#b9b8b2", fontname="Helvetica", fontsize=10, fontcolor="#0b0b0b", margin="0.15,0.08"];
+  edge  [color="#52514e", arrowsize=0.6, fontname="Helvetica", fontsize=8, fontcolor="#52514e"];
+
+  client [label="Client\n(curl / web app / CLI)", fillcolor="#eef4fc", color="#2a78d6"];
+
+  subgraph cluster_api {
+    label="FastAPI  (src/serving)"; color="#b9b8b2"; style="rounded"; fontcolor="#52514e";
+    vapi [label="video_api.py\nPOST /models/{m}/versions/{v}/segment-video\nPOST /models/{m}/segment-video (production)", fillcolor="#eef4fc", color="#2a78d6"];
+    api  [label="api.py\nregistry · load · promote · predict"];
+    vsvc [label="video_service.py\ndecode · prompts · lock · alerts · RLE", fillcolor="#eef4fc", color="#2a78d6"];
+    svc  [label="service.py\nModelVersion / Lifecycle / Prediction"];
+  }
+  subgraph cluster_core {
+    label="Model runtime"; color="#b9b8b2"; style="rounded"; fontcolor="#52514e";
+    loader [label="loader.py  LOADER_REGISTRY\nsklearn/joblib · sam2/pytorch-checkpoint", fillcolor="#eef4fc", color="#2a78d6"];
+    cache  [label="cache.py\nLRU model cache (max_items)"];
+    storage[label="storage.py\nlocal:// (S3-ready)"];
+    repo   [label="repository.py → PostgreSQL / SQLite\nmodels · model_versions"];
+  }
+  subgraph cluster_vos {
+    label="VOS core  (src/vos) — framework-free"; color="#2a78d6"; style="rounded"; fontcolor="#2a78d6";
+    pred [label="predictor.py\nSAM 2.1 + persistent feature cache\nobject score · confidence · timing", fillcolor="#eef4fc", color="#2a78d6"];
+    stab [label="stability.py\nGT-free tIoU · flow-warped IoU\ndrop-outs · jitter", fillcolor="#eef4fc", color="#2a78d6"];
+    metr [label="metrics.py\nDAVIS J · F · J&F · recall · decay", fillcolor="#eef4fc", color="#2a78d6"];
+    bench[label="benchmark.py · cli.py · report.py\nDAVIS · SA-V · synthetic stress tests", fillcolor="#eef4fc", color="#2a78d6"];
+  }
+  mon [label="monitoring/drift_detector.py\nMaskQualityMonitor · QualityDriftDetector", fillcolor="#eef4fc", color="#2a78d6"];
+  prom [label="Prometheus\n/metrics"];
+  graf [label="Grafana\nvideo-segmentation dashboard"];
+
+  client -> vapi; client -> api;
+  vapi -> vsvc; api -> svc; vsvc -> svc [label="load / production"];
+  svc -> repo; svc -> storage; svc -> loader; svc -> cache;
+  vsvc -> pred [label="segment()"]; vsvc -> stab; vsvc -> mon;
+  bench -> pred; bench -> metr; bench -> stab;
+  mon -> prom [label="alerts"]; vsvc -> prom [label="latency · frames"]; prom -> graf;
+}

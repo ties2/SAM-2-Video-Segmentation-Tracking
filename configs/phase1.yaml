@@ -1,0 +1,42 @@
+# Phase 1 — "Can SAM 2 keep a segmentation mask on an object across a video?"
+# CPU-sized benchmark (2 vCPU, no GPU). On a GPU, raise strides/prompts freely.
+model:
+  checkpoint: weights/sam2.1_t.pt
+  source: "github.com/ultralytics/assets v8.3.0 mirror of Meta SAM 2.1 hiera-tiny (fp16)"
+  device: cpu
+  num_threads: 2
+  feature_cache_frames: 64     # re-use Hiera features across prompt types / strides (same video)
+
+workdir: .cache/vos
+out_dir: results/phase1
+
+sequences:
+  car-shadow:      {source: davis, root: data/samples/davis/DAVIS, name: car-shadow}
+  sav_000001:      {source: sav, video: data/samples/sav/sav_000001.mp4,
+                    annotations: data/samples/sav/sav_000001_manual.json, frames_dir: data/samples/sav/frames}
+  occlusion:       {source: synthetic, scenario: occlusion, root: data/synthetic, num_frames: 48}
+  distractor:      {source: synthetic, scenario: distractor, root: data/synthetic, num_frames: 48}
+  exit_reentry:    {source: synthetic, scenario: exit_reentry, root: data/synthetic, num_frames: 48}
+  fast_motion:     {source: synthetic, scenario: fast_motion, root: data/synthetic, num_frames: 48}
+  bedroom:         {source: unlabeled, frames: data/samples/sam2/bedroom, name: bedroom}
+
+experiments:
+  # 1) how much user effort does SAM 2 need? (prompt type)
+  - {sequences: [car-shadow], prompts: [mask, box, click, click3], strides: [1]}
+  # 2) frame-rate / cost trade-off (temporal sub-sampling)
+  - {sequences: [car-shadow], prompts: [mask], strides: [2, 4]}
+  # 2b) sub-sampling hurts when motion is large: same sweep on the stress tests
+  - {sequences: [fast_motion, occlusion], prompts: [mask], strides: [2, 4]}
+  # 3) failure modes with exact GT
+  - {sequences: [occlusion, exit_reentry, fast_motion], prompts: [mask], strides: [1]}
+  - {sequences: [distractor], prompts: [mask, click], strides: [1]}
+  # 4) real multi-object video with visibility changes (SA-V annotates at 6 fps → stride 4)
+  - {sequences: [sav_000001], prompts: [mask], strides: [4]}
+
+unlabeled:
+  # GT-free stability + demo video; two kids that cross each other
+  - sequence: bedroom
+    stride: 4
+    objects:
+      1: {points: [[395, 140], [395, 235]], frame: 0}   # girl
+      2: {points: [[240, 245], [215, 355]], frame: 0}   # boy

@@ -1,0 +1,19 @@
+# Runs Ruff for linting and formatting before every commit.
+# One-time installation: pre-commit install
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.0
+    hooks:
+      # Lint (with auto-fix for fixable issues)
+      - id: ruff
+        args: [--fix]
+      # Formatter
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace      # Removes extra trailing whitespace
+      - id: end-of-file-fixer        # Ensures the file ends with a blank line
+      - id: check-yaml               # Checks the validity of YAML files
+      - id: check-added-large-files  # Prevents committing very large files

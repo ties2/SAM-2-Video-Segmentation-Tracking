@@ -1,0 +1,82 @@
+{
+  "title": "MSP - Model Serving Overview",
+  "templating": {
+    "list": [
+      {
+        "name": "model",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(prediction_requests_total, model)",
+        "refresh": 1,
+        "includeAll": true,
+        "multi": true
+      },
+      {
+        "name": "version",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(prediction_requests_total{model=~\"$model\"}, version)",
+        "refresh": 1,
+        "includeAll": true,
+        "multi": true
+      }
+    ]
+  },
+  "panels": [
+    {
+      "title": "Request Rate (Predictions/sec)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum by(status) (rate(prediction_requests_total{model=~\"$model\", version=~\"$version\"}[1m]))",
+          "legendFormat": "{{status}}"
+        }
+      ]
+    },
+    {
+      "title": "Error Rate (Errors/sec)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum by(error_type) (rate(prediction_errors_total{model=~\"$model\", version=~\"$version\"}[1m]))",
+          "legendFormat": "{{error_type}}"
+        }
+      ]
+    },
+    {
+      "title": "P95 Prediction Latency",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(prediction_latency_seconds_bucket{model=~\"$model\", version=~\"$version\"}[1m])))",
+          "legendFormat": "P95 Latency"
+        }
+      ]
+    },
+    {
+      "title": "P95 Model Load Latency",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(model_load_latency_seconds_bucket{model=~\"$model\", version=~\"$version\"}[1m])))",
+          "legendFormat": "P95 Load Latency"
+        }
+      ]
+    },
+    {
+      "title": "Cache Hit Rate (%)",
+      "type": "gauge",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "targets": [
+        {
+          "expr": "sum(rate(model_cache_hits_total{model=~\"$model\", version=~\"$version\"}[1m])) / (sum(rate(model_cache_hits_total{model=~\"$model\", version=~\"$version\"}[1m])) + sum(rate(model_cache_misses_total{model=~\"$model\", version=~\"$version\"}[1m]))) * 100",
+          "legendFormat": "Hit Rate"
+        }
+      ]
+    }
+  ]
+}

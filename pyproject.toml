@@ -1,0 +1,28 @@
+[project]
+name = "sam2-video-seg-platform"
+version = "0.2.0"
+description = "SAM 2 video object segmentation & tracking on a production model-serving platform"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["slow: needs torch + SAM 2 weights (deselect with -m 'not slow')"]
+filterwarnings = [
+    "ignore::DeprecationWarning:joblib.*",
+    "ignore:.*httpx.*:DeprecationWarning",
+    "ignore::DeprecationWarning:joblib.numpy_pickle",
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated",
+    "ignore:cannot import name '_C' from 'sam2'",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["data", "results", "weights", ".cache"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008"]   # Depends() / File() / Form() as defaults is the standard FastAPI pattern

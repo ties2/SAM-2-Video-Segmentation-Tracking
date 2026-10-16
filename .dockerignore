@@ -1,0 +1,18 @@
+# keep the build context small: without this file `COPY . .` shipped the 480 MB .venv
+.venv/
+venv/
+.git/
+.idea/
+.vscode/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+.ruff_cache/
+.cache/
+.env
+logs/
+data/
+weights/
+outputs/
+results/predictions/
+bk/

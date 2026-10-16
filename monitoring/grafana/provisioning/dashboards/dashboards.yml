@@ -1,0 +1,11 @@
+#this file show where is dashboard files (json) to grafana
+apiVersion: 1
+providers:
+  - name: 'Default Dashboards'
+    orgId: 1
+    folder: 'MLOps'
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards

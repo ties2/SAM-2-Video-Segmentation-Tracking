@@ -1,0 +1,155 @@
+{
+  "title": "MSP - Video Segmentation (SAM 2)",
+  "templating": {
+    "list": [
+      {
+        "name": "model",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(video_segmentation_requests_total, model)",
+        "refresh": 1,
+        "includeAll": true,
+        "multi": true
+      },
+      {
+        "name": "version",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(video_segmentation_requests_total{model=~\"$model\"}, version)",
+        "refresh": 1,
+        "includeAll": true,
+        "multi": true
+      }
+    ]
+  },
+  "panels": [
+    {
+      "title": "Requests / min by status",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "sum by(status) (rate(video_segmentation_requests_total{model=~\"$model\", version=~\"$version\"}[5m])) * 60",
+          "legendFormat": "{{status}}"
+        }
+      ]
+    },
+    {
+      "title": "Errors / min by type",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "sum by(error_type) (rate(video_segmentation_errors_total{model=~\"$model\", version=~\"$version\"}[5m])) * 60",
+          "legendFormat": "{{error_type}}"
+        }
+      ]
+    },
+    {
+      "title": "Throughput (frames / s)",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "expr": "sum(rate(video_frames_processed_total{model=~\"$model\", version=~\"$version\"}[5m]))",
+          "legendFormat": "frames/s"
+        }
+      ]
+    },
+    {
+      "title": "P95 latency per frame",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": "s",
+        "x": 12,
+        "y": 8
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(video_frame_latency_seconds_bucket{model=~\"$model\", version=~\"$version\"}[5m])))",
+          "legendFormat": "p95 frame"
+        }
+      ]
+    },
+    {
+      "title": "P95 request latency",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": "s",
+        "x": 0,
+        "y": 16
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by(le) (rate(video_segmentation_latency_seconds_bucket{model=~\"$model\", version=~\"$version\"}[5m])))",
+          "legendFormat": "p95 request"
+        }
+      ]
+    },
+    {
+      "title": "Median temporal IoU (GT-free mask stability)",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.5, sum by(le) (rate(mask_temporal_iou_bucket{model=~\"$model\", version=~\"$version\"}[15m])))",
+          "legendFormat": "median tIoU"
+        }
+      ]
+    },
+    {
+      "title": "Mask quality alerts / h by reason",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "targets": [
+        {
+          "expr": "sum by(reason) (rate(mask_quality_alerts_total{model=~\"$model\", version=~\"$version\"}[1h])) * 3600",
+          "legendFormat": "{{reason}}"
+        }
+      ]
+    },
+    {
+      "title": "Share of objects with > 10 % empty frames",
+      "type": "timeseries",
+      "gridPos": {
+        "h": 8,
+        "w": "percentunit",
+        "x": 12,
+        "y": 24
+      },
+      "targets": [
+        {
+          "expr": "1 - (sum(rate(mask_empty_frame_ratio_bucket{model=~\"$model\", version=~\"$version\", le=\"0.1\"}[15m])) / sum(rate(mask_empty_frame_ratio_count{model=~\"$model\", version=~\"$version\"}[15m])))",
+          "legendFormat": "objects losing track"
+        }
+      ]
+    }
+  ]
+}

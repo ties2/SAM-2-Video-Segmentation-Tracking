@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint (Ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "ruff>=0.6"
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    name: Test (pytest, PostgreSQL)
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: admin
+          POSTGRES_PASSWORD: secretpassword
+          POSTGRES_DB: ml_serving_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U admin -d ml_serving_db"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: ml_serving_db
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      APP_ENV: test
+      ARTIFACT_STORAGE_BACKEND: local
+      LOCAL_ARTIFACT_DIR: /tmp/model_artifacts/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      # fast suite: metrics, RLE, stability, synthetic data, registry, video API (fake segmenter)
+      - run: pytest -m "not slow"
+
+  sam2-smoke:
+    name: SAM 2 inference (CPU, slow)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - run: pip install --index-url https://download.pytorch.org/whl/cpu torch==2.14.1 torchvision==0.29.1
+      - run: SAM2_BUILD_CUDA=0 pip install -r requirements-vos.txt
+      - uses: actions/cache@v4
+        with:
+          path: weights
+          key: sam2.1-hiera-tiny
+      - run: python -m src.vos.cli fetch-weights --variant tiny --out weights
+      - run: SAM2_CHECKPOINT=weights/sam2.1_hiera_tiny.pt pytest -m slow

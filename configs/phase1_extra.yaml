@@ -1,0 +1,16 @@
+# Appended to results/phase1 in this session (the main run was already in progress):
+#   python -m src.vos.cli benchmark --config configs/phase1_extra.yaml --append
+# configs/phase1.yaml contains the same experiment, so a fresh `make benchmark` reproduces everything.
+model:
+  checkpoint: weights/sam2.1_t.pt
+  source: "github.com/ultralytics/assets v8.3.0 mirror of Meta SAM 2.1 hiera-tiny (fp16)"
+  device: cpu
+  num_threads: 2
+  feature_cache_frames: 64
+workdir: .cache/vos
+out_dir: results/phase1
+sequences:
+  occlusion:   {source: synthetic, scenario: occlusion, root: data/synthetic, num_frames: 48}
+  fast_motion: {source: synthetic, scenario: fast_motion, root: data/synthetic, num_frames: 48}
+experiments:
+  - {sequences: [fast_motion, occlusion], prompts: [mask], strides: [2, 4]}

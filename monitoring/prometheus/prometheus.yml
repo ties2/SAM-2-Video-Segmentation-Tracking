@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'model-serving-api'
+    metrics_path: '/metrics'
+    static_configs:
+      # نام سرویس api در داکر کامپوز به همراه پورت آن
+      - targets: ['api:8000']

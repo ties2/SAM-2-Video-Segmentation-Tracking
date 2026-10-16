@@ -1,0 +1,566 @@
+{
+  "runs": [
+    {
+      "run_id": "car-shadow|click|s2",
+      "sequence": "car-shadow",
+      "source": "davis",
+      "prompt": "click",
+      "stride": 2,
+      "num_frames": 4,
+      "num_objects": 1,
+      "model": "sam2.1-hiera-tiny",
+      "scores": {
+        "sequence": "car-shadow",
+        "num_objects": 1,
+        "J&F": 0.9857904089851511,
+        "J_mean": 0.9803554147598201,
+        "J_recall": 1.0,
+        "J_decay": -0.0010862764803075686,
+        "F_mean": 0.9912254032104821,
+        "F_recall": 1.0,
+        "F_decay": -0.001984991244405432
+      },
+      "per_object": [
+        {
+          "obj_id": 1,
+          "J": {
+            "mean": 0.9803554147598201,
+            "recall": 1.0,
+            "decay": -0.0010862764803075686
+          },
+          "F": {
+            "mean": 0.9912254032104821,
+            "recall": 1.0,
+            "decay": -0.001984991244405432
+          },
+          "J&F": 0.9857904089851511,
+          "frames": 2
+        }
+      ],
+      "stability": [
+        {
+          "obj_id": 1,
+          "num_frames": 4,
+          "tiou_mean": 0.816525957486605,
+          "tiou_p05": 0.7975964303340008,
+          "aligned_iou_mean": 0.943433666532703,
+          "aligned_iou_p05": 0.9422270598855124,
+          "warped_iou_mean": 0.9353217483671082,
+          "warped_iou_p05": 0.9327972586799897,
+          "area_cv": 0.05432166707969892,
+          "area_jump_rate": 0.0,
+          "empty_frames": 0,
+          "empty_rate": 0.0,
+          "isolated_dropouts": 0,
+          "longest_empty_run": 0,
+          "lost_events": 0,
+          "recovered_events": 0,
+          "centroid_jitter_px": 3.0361761620083376,
+          "confidence_mean": 0.986708328127861,
+          "uncertain_fraction_mean": 0.002500487900078064,
+          "object_score_min": 8.568197250366211
+        }
+      ],
+      "events": [
+        {
+          "obj_id": 1,
+          "hidden_frames": 0,
+          "hidden_J": null,
+          "reappearances": 0,
+          "redetection_delay": [],
+          "recovered_all": null,
+          "J_after_first_hide": null,
+          "lost_after_redetection": 0
+        }
+      ],
+      "timing": {
+        "wall_s": 7.032797500000015,
+        "init_s": 1.2752524169991375,
+        "prompt_s": 0.047805666999920504,
+        "propagate_s": 5.704541749999407,
+        "fps": 0.701195674481726,
+        "ms_per_frame": 1426.1354374998518,
+        "ms_per_frame_p95": 2019.3407544988077,
+        "peak_rss_mb": 0.0,
+        "feature_cache_hits": 2,
+        "feature_cache_misses": 4
+      }
+    },
+    {
+      "run_id": "car-shadow|box|s2",
+      "sequence": "car-shadow",
+      "source": "davis",
+      "prompt": "box",
+      "stride": 2,
+      "num_frames": 4,
+      "num_objects": 1,
+      "model": "sam2.1-hiera-tiny",
+      "scores": {
+        "sequence": "car-shadow",
+        "num_objects": 1,
+        "J&F": 0.9874862181629191,
+        "J_mean": 0.9824086665948772,
+        "J_recall": 1.0,
+        "J_decay": 0.00020722403602313477,
+        "F_mean": 0.9925637697309609,
+        "F_recall": 1.0,
+        "F_decay": -0.0008755709579848503
+      },
+      "per_object": [
+        {
+          "obj_id": 1,
+          "J": {
+            "mean": 0.9824086665948772,
+            "recall": 1.0,
+            "decay": 0.00020722403602313477
+          },
+          "F": {
+            "mean": 0.9925637697309609,
+            "recall": 1.0,
+            "decay": -0.0008755709579848503
+          },
+          "J&F": 0.9874862181629191,
+          "frames": 2
+        }
+      ],
+      "stability": [
+        {
+          "obj_id": 1,
+          "num_frames": 4,
+          "tiou_mean": 0.8171686569765765,
+          "tiou_p05": 0.8002156364128657,
+          "aligned_iou_mean": 0.9442344157002621,
+          "aligned_iou_p05": 0.9432831627041797,
+          "warped_iou_mean": 0.9362607764854189,
+          "warped_iou_p05": 0.9326521148364663,
+          "area_cv": 0.05597404822141207,
+          "area_jump_rate": 0.0,
+          "empty_frames": 0,
+          "empty_rate": 0.0,
+          "isolated_dropouts": 0,
+          "longest_empty_run": 0,
+          "lost_events": 0,
+          "recovered_events": 0,
+          "centroid_jitter_px": 3.2050767416049037,
+          "confidence_mean": 0.9908938109874725,
+          "uncertain_fraction_mean": 0.0018521906713505074,
+          "object_score_min": 8.522350311279297
+        }
+      ],
+      "events": [
+        {
+          "obj_id": 1,
+          "hidden_frames": 0,
+          "hidden_J": null,
+          "reappearances": 0,
+          "redetection_delay": [],
+          "recovered_all": null,
+          "J_after_first_hide": null,
+          "lost_after_redetection": 0
+        }
+      ],
+      "timing": {
+        "wall_s": 2.1450200419985777,
+        "init_s": 0.06715312500091386,
+        "prompt_s": 0.047737667000546935,
+        "propagate_s": 2.0292636249996576,
+        "fps": 1.9711583801738302,
+        "ms_per_frame": 507.3159062499144,
+        "ms_per_frame_p95": 747.0489642990286,
+        "peak_rss_mb": 0.0,
+        "feature_cache_hits": 8,
+        "feature_cache_misses": 4
+      }
+    },
+    {
+      "run_id": "synthetic/distractor|mask|s8",
+      "sequence": "synthetic/distractor",
+      "source": "synthetic",
+      "prompt": "mask",
+      "stride": 8,
+      "num_frames": 4,
+      "num_objects": 1,
+      "model": "sam2.1-hiera-tiny",
+      "scores": {
+        "sequence": "synthetic/distractor",
+        "num_objects": 1,
+        "J&F": 0.9970360372085783,
+        "J_mean": 0.9940720744171564,
+        "J_recall": 1.0,
+        "J_decay": 0.0002623632525149411,
+        "F_mean": 1.0,
+        "F_recall": 1.0,
+        "F_decay": 0.0
+      },
+      "per_object": [
+        {
+          "obj_id": 1,
+          "J": {
+            "mean": 0.9940720744171564,
+            "recall": 1.0,
+            "decay": 0.0002623632525149411
+          },
+          "F": {
+            "mean": 1.0,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "J&F": 0.9970360372085783,
+          "frames": 2
+        }
+      ],
+      "stability": [
+        {
+          "obj_id": 1,
+          "num_frames": 4,
+          "tiou_mean": 0.033671237759582286,
+          "tiou_p05": 0.025562624448164685,
+          "aligned_iou_mean": 0.8926654421637757,
+          "aligned_iou_p05": 0.7238154345094719,
+          "warped_iou_mean": 0.08779737980575102,
+          "warped_iou_p05": 0.061658075942111354,
+          "area_cv": 0.16564418998945593,
+          "area_jump_rate": 0.3333333333333333,
+          "empty_frames": 0,
+          "empty_rate": 0.0,
+          "isolated_dropouts": 0,
+          "longest_empty_run": 0,
+          "lost_events": 0,
+          "recovered_events": 0,
+          "centroid_jitter_px": 12.916955362159307,
+          "confidence_mean": 0.9913714975118637,
+          "uncertain_fraction_mean": 0.0003232338017174083,
+          "object_score_min": 6.915069580078125
+        }
+      ],
+      "events": [
+        {
+          "obj_id": 1,
+          "hidden_frames": 0,
+          "hidden_J": null,
+          "reappearances": 0,
+          "redetection_delay": [],
+          "recovered_all": null,
+          "J_after_first_hide": null,
+          "lost_after_redetection": 0,
+          "distractor_leakage_mean": 0.17503046657381616,
+          "distractor_leakage_max": 0.7001218662952646,
+          "identity_switch": false
+        }
+      ],
+      "timing": {
+        "wall_s": 7.333751916999972,
+        "init_s": 1.7126657499993598,
+        "prompt_s": 0.04946137499973702,
+        "propagate_s": 5.567592749999676,
+        "fps": 0.7184433523806555,
+        "ms_per_frame": 1391.898187499919,
+        "ms_per_frame_p95": 1923.655228700136,
+        "peak_rss_mb": 0.0,
+        "feature_cache_hits": 10,
+        "feature_cache_misses": 8
+      }
+    },
+    {
+      "run_id": "sav_000001|mask|s4",
+      "sequence": "sav_000001",
+      "source": "sav",
+      "prompt": "mask",
+      "stride": 4,
+      "num_frames": 3,
+      "num_objects": 4,
+      "model": "sam2.1-hiera-tiny",
+      "scores": {
+        "sequence": "sav_000001",
+        "num_objects": 4,
+        "J&F": 0.974869614950777,
+        "J_mean": 0.9529957200094046,
+        "J_recall": 1.0,
+        "J_decay": 0.0,
+        "F_mean": 0.9967435098921493,
+        "F_recall": 1.0,
+        "F_decay": 0.0
+      },
+      "per_object": [
+        {
+          "obj_id": 1,
+          "J": {
+            "mean": 0.9342345633905736,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "F": {
+            "mean": 1.0,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "J&F": 0.9671172816952869,
+          "frames": 1
+        },
+        {
+          "obj_id": 2,
+          "J": {
+            "mean": 0.9705061777600638,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "F": {
+            "mean": 0.9869740395685975,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "J&F": 0.9787401086643306,
+          "frames": 1
+        },
+        {
+          "obj_id": 3,
+          "J": {
+            "mean": 0.9489846458642892,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "F": {
+            "mean": 1.0,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "J&F": 0.9744923229321446,
+          "frames": 1
+        },
+        {
+          "obj_id": 5,
+          "J": {
+            "mean": 0.9582574930226915,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "F": {
+            "mean": 1.0,
+            "recall": 1.0,
+            "decay": 0.0
+          },
+          "J&F": 0.9791287465113457,
+          "frames": 1
+        }
+      ],
+      "stability": [
+        {
+          "obj_id": 1,
+          "num_frames": 3,
+          "tiou_mean": 0.34590316573556795,
+          "tiou_p05": 0.034590316573556795,
+          "aligned_iou_mean": 0.7688440837890715,
+          "aligned_iou_p05": 0.64725154124604,
+          "warped_iou_mean": 0.4331903662157704,
+          "warped_iou_p05": 0.043319036621577045,
+          "area_cv": 0.04672544364882286,
+          "area_jump_rate": 0.0,
+          "empty_frames": 0,
+          "empty_rate": 0.0,
+          "isolated_dropouts": 0,
+          "longest_empty_run": 0,
+          "lost_events": 0,
+          "recovered_events": 0,
+          "centroid_jitter_px": 112.66220763090091,
+          "confidence_mean": 0.983529806137085,
+          "uncertain_fraction_mean": 0.0002620545073375262,
+          "object_score_min": 9.035945892333984
+        },
+        {
+          "obj_id": 2,
+          "num_frames": 3,
+          "tiou_mean": 0.477012796394829,
+          "tiou_p05": 0.4009433384347869,
+          "aligned_iou_mean": 0.5770240658005981,
+          "aligned_iou_p05": 0.5611286097962058,
+          "warped_iou_mean": 0.557398627398018,
+          "warped_iou_p05": 0.44576504319976484,
+          "area_cv": 0.14686729618484742,
+          "area_jump_rate": 0.0,
+          "empty_frames": 0,
+          "empty_rate": 0.0,
+          "isolated_dropouts": 0,
+          "longest_empty_run": 0,
+          "lost_events": 0,
+          "recovered_events": 0,
+          "centroid_jitter_px": 117.81302815485854,
+          "confidence_mean": 0.9806770284970602,
+          "uncertain_fraction_mean": 0.009628046383647799,
+          "object_score_min": 8.623043060302734
+        },
+        {
+          "obj_id": 3,
+          "num_frames": 3,
+          "tiou_mean": 0.46498123605690844,
+          "tiou_p05": 0.2864321623579239,
+          "aligned_iou_mean": 0.6640182221471189,
+          "aligned_iou_p05": 0.41119473938157863,
+          "warped_iou_mean": 0.7366533995505331,
+          "warped_iou_p05": 0.5430364393309535,
+          "area_cv": 0.24311344236927743,
+          "area_jump_rate": 0.5,
+          "empty_frames": 0,
+          "empty_rate": 0.0,
+          "isolated_dropouts": 0,
+          "longest_empty_run": 0,
+          "lost_events": 0,
+          "recovered_events": 0,
+          "centroid_jitter_px": 26.39883713015739,
+          "confidence_mean": 0.9744941194852194,
+          "uncertain_fraction_mean": 0.000642852463312369,
+          "object_score_min": 6.92418909072876
+        },
+        {
+          "obj_id": 5,
+          "num_frames": 3,
+          "tiou_mean": 0.11566970572974576,
+          "tiou_p05": 0.011566970572974577,
+          "aligned_iou_mean": 0.7584410268728119,
+          "aligned_iou_p05": 0.7356691118013898,
+          "warped_iou_mean": 0.18462717058222677,
+          "warped_iou_p05": 0.018462717058222677,
+          "area_cv": 0.13204349324454415,
+          "area_jump_rate": 0.5,
+          "empty_frames": 0,
+          "empty_rate": 0.0,
+          "isolated_dropouts": 0,
+          "longest_empty_run": 0,
+          "lost_events": 0,
+          "recovered_events": 0,
+          "centroid_jitter_px": 182.1865947826228,
+          "confidence_mean": 0.9862567981084188,
+          "uncertain_fraction_mean": 0.000784525681341719,
+          "object_score_min": 8.694091796875
+        }
+      ],
+      "events": [
+        {
+          "obj_id": 1,
+          "hidden_frames": 0,
+          "hidden_J": null,
+          "reappearances": 0,
+          "redetection_delay": [],
+          "recovered_all": null,
+          "J_after_first_hide": null,
+          "lost_after_redetection": 0
+        },
+        {
+          "obj_id": 2,
+          "hidden_frames": 0,
+          "hidden_J": null,
+          "reappearances": 0,
+          "redetection_delay": [],
+          "recovered_all": null,
+          "J_after_first_hide": null,
+          "lost_after_redetection": 0
+        },
+        {
+          "obj_id": 3,
+          "hidden_frames": 0,
+          "hidden_J": null,
+          "reappearances": 0,
+          "redetection_delay": [],
+          "recovered_all": null,
+          "J_after_first_hide": null,
+          "lost_after_redetection": 0
+        },
+        {
+          "obj_id": 5,
+          "hidden_frames": 0,
+          "hidden_J": null,
+          "reappearances": 0,
+          "redetection_delay": [],
+          "recovered_all": null,
+          "J_after_first_hide": null,
+          "lost_after_redetection": 0
+        }
+      ],
+      "timing": {
+        "wall_s": 8.442648459000338,
+        "init_s": 1.2223166250005306,
+        "prompt_s": 0.1491929160001746,
+        "propagate_s": 7.070421709000584,
+        "fps": 0.42430283842631716,
+        "ms_per_frame": 2356.807236333528,
+        "ms_per_frame_p95": 3576.368745900618,
+        "peak_rss_mb": 0.0,
+        "feature_cache_hits": 24,
+        "feature_cache_misses": 11
+      }
+    }
+  ],
+  "environment": {
+    "date": "2026-10-16 15:47:41",
+    "python": "3.12.3",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "processor": "arm",
+    "torch": "2.14.1",
+    "torch_threads": 2,
+    "device": "cpu",
+    "model": "sam2.1-hiera-tiny",
+    "num_params": 38962498,
+    "checkpoint": "sam2.1_t.pt",
+    "checkpoint_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69",
+    "checkpoint_dtypes": [
+      "torch.float32"
+    ],
+    "checkpoint_source": null
+  },
+  "unlabeled": [
+    {
+      "sequence": "bedroom",
+      "stride": 50,
+      "frames": 4,
+      "objects": 1,
+      "stability": [
+        {
+          "obj_id": 1,
+          "num_frames": 4,
+          "tiou_mean": 0.007241100323624595,
+          "tiou_p05": 0.0,
+          "aligned_iou_mean": 0.7501704820226452,
+          "aligned_iou_p05": 0.6824787096519294,
+          "warped_iou_mean": 0.21533555185801442,
+          "warped_iou_p05": 0.0,
+          "area_cv": 0.14043865454526597,
+          "area_jump_rate": 0.3333333333333333,
+          "empty_frames": 0,
+          "empty_rate": 0.0,
+          "isolated_dropouts": 0,
+          "longest_empty_run": 0,
+          "lost_events": 0,
+          "recovered_events": 0,
+          "centroid_jitter_px": 197.7520887676243,
+          "confidence_mean": 0.9820462763309479,
+          "uncertain_fraction_mean": 0.00040316358024691356,
+          "object_score_min": 7.995835781097412
+        }
+      ],
+      "fps": 0.7023488308500885,
+      "ms_per_frame": 1423.7939270001334,
+      "video": "results/smoke/videos/bedroom_tracking.mp4"
+    }
+  ],
+  "signal_quality": {
+    "frames": 10,
+    "failure_frames": 0,
+    "confidence": {
+      "spearman_with_J": 0.8909090909090909,
+      "auroc_detect_failure": null,
+      "frames_with_value": 10,
+      "failures_with_value": 0
+    },
+    "object_score": {
+      "spearman_with_J": -0.43030303030303024,
+      "auroc_detect_failure": null,
+      "frames_with_value": 10,
+      "failures_with_value": 0
+    },
+    "uncertain_fraction": {
+      "spearman_with_J": -0.09090909090909088,
+      "auroc_detect_failure": null,
+      "frames_with_value": 10,
+      "failures_with_value": 0
+    }
+  }
+}

@@ -1,0 +1,16 @@
+# Tiny end-to-end check of the benchmark pipeline (a few frames per sequence).
+model: {checkpoint: weights/sam2.1_t.pt, device: cpu, num_threads: 2, feature_cache_frames: 16}
+workdir: .cache/vos_smoke
+out_dir: results/smoke
+sequences:
+  car-shadow: {source: davis, root: data/samples/davis/DAVIS, name: car-shadow}
+  sav_000001: {source: sav, video: data/samples/sav/sav_000001.mp4,
+               annotations: data/samples/sav/sav_000001_manual.json, frames_dir: data/samples/sav/frames}
+  distractor: {source: synthetic, scenario: distractor, root: data/synthetic, num_frames: 48}
+  bedroom:    {source: unlabeled, frames: data/samples/sam2/bedroom, name: bedroom}
+experiments:
+  - {sequences: [car-shadow], prompts: [click, box], strides: [2], max_frames: 4}
+  - {sequences: [distractor], prompts: [mask], strides: [8], max_frames: 4}
+  - {sequences: [sav_000001], prompts: [mask], strides: [4], max_frames: 3}
+unlabeled:
+  - {sequence: bedroom, stride: 50, objects: {1: {points: [[395, 140]], frame: 0}}}

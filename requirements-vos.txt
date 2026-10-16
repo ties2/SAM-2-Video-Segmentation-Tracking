@@ -1,0 +1,16 @@
+## ==========================================
+## SAM 2 inference stack (install AFTER requirements.txt)
+##   CPU:  pip install --index-url https://download.pytorch.org/whl/cpu torch==2.14.1 torchvision==0.29.1
+##   GPU:  pip install torch==2.14.1 torchvision==0.29.1        (CUDA wheels from PyPI)
+## ==========================================
+#torch>=2.5.1
+#torchvision>=0.20.1
+## Official Meta implementation, pinned to the commit used for the Phase-1 results.
+## (The PyPI package named "sam2" is NOT published by Meta — do not use it.)
+#sam2 @ git+https://github.com/facebookresearch/sam2.git@2b90b9f5ceec907a1c18123530e92e794ad901a4
+#matplotlib>=3.8                  # benchmark plots
+torch>=2.5.1
+torchvision>=0.20.1
+# Official Meta implementation, pinned to the commit used for the Phase-1 results.
+sam-2 @ git+https://github.com/facebookresearch/sam2.git@2b90b9f5ceec907a1c18123530e92e794ad901a4
+matplotlib>=3.8
